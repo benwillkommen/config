@@ -6,17 +6,19 @@ write-host " `-\     /"
 write-host "    `-=-'     You think you're fancy?"
 
 $octavePath = "C:\Octave\Octave-4.0.3\bin\octave-gui.exe"
-function start-octave{
-	C:\Octave\Octave-4.0.3\bin\octave-gui.exe --no-gui
-}
-
 if (Test-Path $octavePath){	
+	function start-octave{
+		C:\Octave\Octave-4.0.3\bin\octave-gui.exe --no-gui
+	}
 	new-alias octave start-octave
 }
 
 $sublPath = "C:\Program Files\Sublime Text 3\subl.exe"
-if (Test-Path $sublPath){	
-	new-alias subl $sublPath
+if (Test-Path $sublPath){
+	function start-sublimeAsAdministrator{
+		start-process $sublPath -verb runas
+	}	
+	new-alias subl start-sublimeAsAdministrator
 }
 
 $githubDesktopPath = "$env:LOCALAPPDATA\GitHub\shell.ps1";
